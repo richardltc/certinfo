@@ -37,9 +37,10 @@ func exec(args []string) error {
 	timeout := fl.Duration("timeout", 5*time.Second, "time out on TCP dialing")
 	expires := fl.Duration("expires", 7*24*time.Hour,
 		"error if cert expiration time is less than this; use 0 to disable")
-	mode := "text"
+	mode := fl.String("output", "text", "json, text or none") //"json"
+	//mode := "text"
 	fl.Var(
-		flagext.Choice(&mode, "json", "text", "none"),
+		flagext.Choice(*mode, "json", "text", "none"),
 		"output",
 		"output `mode`: text, json, or none")
 	fl.Usage = func() {
